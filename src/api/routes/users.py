@@ -1,6 +1,6 @@
 from flask import request, make_response, jsonify
 from flask_restful import Resource
-from flask_security import hash_password
+from flask_security import hash_password, verify_password
 from src.api.models.users import UserSchema
 from src.main import user_datastore, db
 
@@ -28,5 +28,7 @@ class Login(Resource):
             return make_response('', 400)
         user_fetched = user_datastore.find_user(email=user.get('email'))
         if not user_fetched:
+            return make_response('', 400)
+        if not verify_password(user.get('password'), user_fetched.password):
             return make_response('', 400)
         return make_response(jsonify({'access_token': user_fetched.get_auth_token()}), 200)
