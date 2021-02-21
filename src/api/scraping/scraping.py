@@ -54,14 +54,16 @@ class BeautifulSoupComponent:
                 words_dict[tag.name] = 0
         for word in words:
             counter = words_dict.copy()
-            tags = self.soup.find_all(text=re.compile(word))
-            for tag in tags:
-                text = str(tag).strip().split()
+            nodes = self.soup.find_all(text=re.compile(word))
+            for node in nodes:
+                text = str(node).strip().split()
                 occurrences = 0
                 for w in text:
                     if w == word:
                         occurrences = occurrences + 1
-                counter[tag.parent.name] = counter.get(tag.parent.name) + occurrences
+                if not node.parent:
+                    continue
+                counter[node.parent.name] = counter.get(node.parent.name) + occurrences
             page[word] = counter
         processing_time = round(time.time() - initial_time, 2)
         page['processing_time'] = processing_time
