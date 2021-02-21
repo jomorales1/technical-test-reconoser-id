@@ -1,10 +1,12 @@
 from flask import request, make_response, jsonify
 from flask_restful import Resource
+from flask_security import auth_token_required
 from src.api.models.words import WordsRequestSchema
 from src.api.scraping.scraping import BeautifulSoupComponent
 
 
 class CountWords(Resource):
+    @auth_token_required
     def get(self):
         try:
             data = request.get_json()
