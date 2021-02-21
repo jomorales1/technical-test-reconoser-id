@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "9eb788c3-cfed-4cb5-8349-baa2564283a5",
+		"name": "technical-test-reconoser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication-Token",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@me.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/user",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "Adds a new record in the user table. Request body must contain email and password fields."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Authentication Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication-Token",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@me.com\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "Returns the authentication token of a specific user. Request body must contain email and password fields."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Labels URL",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authentication-Token",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://reconoserid.com/\",\r\n    \"labels\": [\r\n        \"h2\",\r\n        \"p\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/label/count",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"label",
+						"count"
+					]
+				},
+				"description": "Retrieves, using a JSON format, the number of ocurrences per label in a given URL and its first level links."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Words URL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authentication-Token",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://reconoserid.com/\",\r\n    \"words\": [\r\n        \"identidad\",\r\n        \"biometría\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/word/count",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"word",
+						"count"
+					]
+				},
+				"description": "Retrieves, using a JSON format, the number of ocurrences per word in a given URL and its first level links."
+			},
+			"response": []
+		}
+	]
+}
