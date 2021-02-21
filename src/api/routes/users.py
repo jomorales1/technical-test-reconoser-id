@@ -7,6 +7,31 @@ from src.main import user_datastore, db
 
 class Users(Resource):
     def post(self):
+        """
+        Creates a new user
+        ---
+        tags:
+            - users
+        description: Given user's email and password creates a new instance in the database.
+        parameters:
+            - in: body
+              name: email
+              required: true
+              type: string
+              description: User's email.
+              example: test@me.com
+            - in: body
+              name: password
+              required: true
+              type: string
+              description: User's password.
+              example: some_strong_password
+        responses:
+            201:
+                description: User created
+            400:
+                description: Invalid input data
+        """
         data = request.get_json()
         user_schema = UserSchema()
         user = user_schema.load(data)
@@ -21,6 +46,31 @@ class Users(Resource):
 
 class Login(Resource):
     def post(self):
+        """
+        Returns user's authentication token
+        ---
+        tags:
+            - users
+        description: Given user's email and password checks if user is registered so as to retrieve acess token
+        parameters:
+            - in: body
+              name: email
+              required: true
+              type: string
+              description: User's email.
+              example: test@me.com
+            - in: body
+              name: password
+              required: true
+              type: string
+              description: User's password.
+              example: some_strong_password
+        responses:
+            200:
+                description: User was found in the database and their token was returned
+            400:
+                description: Either user was not found or password was incorrect
+        """
         data = request.get_json()
         user_schema = UserSchema()
         user = user_schema.load(data)

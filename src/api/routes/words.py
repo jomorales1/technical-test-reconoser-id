@@ -8,6 +8,33 @@ from src.api.scraping.scraping import BeautifulSoupComponent
 class CountWords(Resource):
     @auth_token_required
     def get(self):
+        """
+        Generates the word count given a URL
+        ---
+        tags:
+            - scraping
+        description: Given a URL and a list of words, using beautifulsoup, traverses the html tree counting words occurrences per html tag
+        parameters:
+            - in: body
+              name: url
+              required: true
+              type: string
+              description: Page URL.
+              example: https://www.google.com/
+            - in: body
+              name: words
+              required: true
+              type: array
+              description: List of words.
+              example: [yellow, blue, red]
+        responses:
+            200:
+                description: Parameters were valid and the result was returned
+            400:
+                description: Either some parameters are missing or words list is empty
+            401:
+                description: User is not authorized to access the endpoint
+        """
         try:
             data = request.get_json()
             words_schema = WordsRequestSchema()

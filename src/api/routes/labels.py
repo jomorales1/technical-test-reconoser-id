@@ -8,6 +8,33 @@ from src.api.scraping.scraping import BeautifulSoupComponent
 class CountLabels(Resource):
     @auth_token_required
     def post(self):
+        """
+        Generates the labels count given a URL
+        ---
+        tags:
+            - scraping
+        description: Given a URL and a list of labels, using beautifulsoup, traverses the html tree counting labels occurrences
+        parameters:
+            - in: body
+              name: url
+              required: true
+              type: string
+              description: Page URL.
+              example: https://www.google.com/
+            - in: body
+              name: labels
+              required: true
+              type: array
+              description: List of labels.
+              example: [h1, div, a, p]
+        responses:
+            200:
+                description: Parameters were valid and the result was returned
+            400:
+                description: Either some parameters are missing or labels list is empty
+            401:
+                description: User is not authorized to access the endpoint
+        """
         try:
             data = request.get_json()
             labels_schema = LabelsRequestSchema()
